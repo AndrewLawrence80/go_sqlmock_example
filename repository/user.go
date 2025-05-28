@@ -15,10 +15,12 @@ type UserRepository interface {
 	Delete(id uint64) error
 }
 
+// 这里很关键，使用组合模式，并在后续的实现中，将数据库操作对象 *gorm.DB 作为参数传入实现解耦
 type userRepository struct {
 	db *gorm.DB
 }
 
+// 这里很关键，将 *gorm.DB 作为参数传入实现解耦
 func NewUserRepository(db *gorm.DB) UserRepository {
 	return &userRepository{db: db}
 }
